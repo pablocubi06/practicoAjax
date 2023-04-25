@@ -1,34 +1,66 @@
 console.log("cargo el Script");
 const arr=[];
+
 function crearTabla(){
-    
+  let fila='' ;
 const listado = document.getElementById('listado');
 let r = arr.filter(arr =>{
-       console.log(arr.results[0].gender);
+       ;
     return arr.results[0].gender === "male";
 
 }),
 m = arr.filter(arr =>{
-    console.log(arr.results[0].gender);
- return arr.results[0].gender === "female";
+     return arr.results[0].gender === "female";
 
 });
 
+  for(let i=0;i < document.getElementById('cantidad').value; i++ ){
+      
+    if(r[i]!== undefined && m[i]!== undefined){
 
+      fila += `<tr><td><p><img src="${r[i].results[0].picture.medium}" float ="rigth">
+                        ${r[i].results[0].name.first}
+                        ${r[i].results[0].name.last}<br>
+                        ${r[i].results[0].email}
+                        </p></td>
+                        <td><p ><img src="${m[i].results[0].picture.medium}" float ="rigth">
+                        ${m[i].results[0].name.first}
+                        ${m[i].results[0].name.last}<br>
+                        ${m[i].results[0].email}
+                        </p></td>
+                        </tr>       
+                        `;
+    }else 
+    if(r[i]!== undefined && m[i]=== undefined){
+
+      fila += `<tr><p><img src="${r[i].results[0].picture.medium}" float ="rigth">
+                      ${r[i].results[0].name.first}
+                      ${r[i].results[0].name.last}<br>
+                       ${r[i].results[0].email}
+                        </p></tr>
+                        <td> </td>
+                        </tr>`;
+    }
+   else 
+   if(r[i]=== undefined && m[i]!== undefined){
+
+      fila += `<tr><td> </td>
+                   <td><p><img src="${m[i].results[0].picture.medium}" float ="rigth">
+                        ${m[i].results[0].name.first}
+                        ${m[i].results[0].name.last}<br>
+                        ${m[i].results[0].email}
+                        </p></td>
+                        </tr>       
+                        `;
+    }else {i=document.getElementById(`cantidad`);}
+
+
+  }
        
-       const fila = `<tr><td>${r[0].results[0].name.first}
-                        ${r[0].results[0].name.last}
-                        <img src="${r[0].results[0].picture.medium}"</td>
-                        
-                        <td>${m[0].results[0].name.first}
-                        ${m[0].results[0].name.last}
-                        <img src="${m[0].results[0].picture.medium}"</td>
-                        </tr>
-                        `
-                        
+                            
                         
                         listado.innerHTML += fila;
-  console.log(r);
+
 
 }
 async function cargar(){
@@ -42,6 +74,7 @@ async function cargar(){
   }
   crearTabla();
   console.log(arr);
+  document.getElementById('cantidad').value = '';
   
 }
 function eliminar(id){
